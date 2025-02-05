@@ -4,6 +4,7 @@ public class Movement : MonoBehaviour
 {
     // GENERAL STINGS
     private Rigidbody2D _rb;
+    private SpriteRenderer _spriteRenderer;
 
     // HEAL
     public bool isDead;
@@ -15,6 +16,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -30,5 +32,15 @@ public class Movement : MonoBehaviour
         // Calcular la velocidad
         Vector2 movement = new Vector2(moveInputX, moveInputY).normalized * speed;
         _rb.linearVelocity = movement;
+
+        if (moveInputX > 0)
+        {
+            _spriteRenderer.flipX = false; // Mirar a la derecha
+        }
+        else if (moveInputX < 0)
+        {
+            _spriteRenderer.flipX = true; // Mirar a la izquierda
+        }
+
     }
 }
