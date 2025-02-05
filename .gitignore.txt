@@ -1,0 +1,7 @@
+# Archivos de Unity que NO se suben a GitHub
+Library/
+Temp/
+Logs/
+UserSettings/
+Packages/manifest.json
+Packages/packages-lock.json
