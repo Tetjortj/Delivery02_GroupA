@@ -9,8 +9,6 @@ public class timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Camera.main.transform.position + Camera.main.transform.forward * 5;
-        transform.rotation = Camera.main.transform.rotation;
         temps += Time.deltaTime;
         int minutes = Mathf.FloorToInt(temps/60);
         int seconds = Mathf.FloorToInt(temps%60);
