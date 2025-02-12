@@ -4,9 +4,9 @@ using UnityEngine;
 public class EnemyIA : MonoBehaviour
 {
     // GENERAL SETTINGS
-    public float speedPatrol = 2f; // Velocidad de patrulla.
-    public float speedChase = 4f;  // Velocidad de persecución.
-    private float _currentSpeed;   // Velocidad actual.
+    public float speedPatrol = 2f;                      // Velocidad de patrulla.
+    public float speedChase = 4f;                       // Velocidad de persecución.
+    private float _currentSpeed;                        // Velocidad actual.
     private SpriteRenderer _spriteRenderer;
     private EnemyState _currentState = EnemyState.Patrol;
 
