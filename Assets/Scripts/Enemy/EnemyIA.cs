@@ -4,9 +4,9 @@ using UnityEngine;
 public class EnemyIA : MonoBehaviour
 {
     // GENERAL SETTINGS
-    public float speedPatrol = 2f;                      // Velocidad de patrulla.
-    public float speedChase = 4f;                       // Velocidad de persecución.
-    private float _currentSpeed;                        // Velocidad actual.
+    public float speedPatrol = 2f;
+    public float speedChase = 4f;
+    private float _currentSpeed;
     private SpriteRenderer _spriteRenderer;
     private EnemyState _currentState = EnemyState.Patrol;
 
@@ -15,22 +15,22 @@ public class EnemyIA : MonoBehaviour
     private int _currentWaypointTarget;
 
     // MOVE TO
-    [SerializeField] private float detectionRange;       // Rango de detección de obstáculos.
-    [SerializeField] private LayerMask whatIsNotAPlayer; // Máscara de capa para los obstáculos.
-    private Orientation[] _directionsOrientation;        // Array de direcciones precalculadas.
+    [SerializeField] private float detectionRange;
+    [SerializeField] private LayerMask whatIsNotAPlayer;
+    private Orientation[] _directionsOrientation;
 
     // DETECT
-    [SerializeField] private LayerMask whatIsPlayer;     // Capa del jugador.
-    [SerializeField] private float rangeDetectionPlayer; // Rango de detección del jugador.
-    [SerializeField] private float visionAngle;          // Ángulo de visión del enemigo.
+    [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] private float rangeDetectionPlayer;
+    [SerializeField] private float visionAngle;
 
-    private bool _playerDetected;                        // Indica si el jugador ha sido detectado.
-    private GameObject _player;                          // Referencia al jugador.
+    private bool _playerDetected;
+    private GameObject _player;
 
     // CHASE
-    private Vector3 _lastPlayerPosition;                 // Última posición conocida del jugador.
-    private float _chaseCooldown = 5f;                  // Tiempo de enfriamiento para dejar de perseguir.
-    private float _currentCooldown = 0f;                // Tiempo restante de enfriamiento.
+    private Vector3 _lastPlayerPosition;
+    private float _chaseCooldown = 5f;
+    private float _currentCooldown = 0f;
 
     // STATES
     public enum EnemyState
@@ -44,7 +44,7 @@ public class EnemyIA : MonoBehaviour
     {
         // GENERAL SETTINGS
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _currentSpeed = speedPatrol; // Inicializa la velocidad a la de patrulla.
+        _currentSpeed = speedPatrol;
 
         // PATROL
         _currentWaypointTarget = 0;
@@ -53,14 +53,13 @@ public class EnemyIA : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
         if (_player == null)
         {
-            // Debug.LogError("No se encontró un objeto con el tag 'Player' en la escena.");
-            enabled = false; // Desactiva el script si no hay jugador.
+            enabled = false;
             return;
         }
         _playerDetected = false;
 
-        StartCoroutine(DetectPlayerCoroutine()); // Inicia la corrutina de detección.
-        StartCoroutine(DetectWallsCoroutine());  // Inicia la corrutina de detección de obstáculos.
+        StartCoroutine(DetectPlayerCoroutine());
+        StartCoroutine(DetectWallsCoroutine());
     }
 
     private void FixedUpdate()
@@ -86,7 +85,6 @@ public class EnemyIA : MonoBehaviour
     // CLASS ORIENTATION - MAKE DIRECTIONS
     private void Awake()
     {
-        // Ángulos predefinidos para las direcciones.
         float[] angles = { -135f, -90f, -45f, 45f, 90f, 135f, 180f, 360f };
         _directionsOrientation = new Orientation[angles.Length];
 
@@ -111,19 +109,15 @@ public class EnemyIA : MonoBehaviour
         Vector3 bestDirection = Vector3.zero;
         float shortestDistance = float.MaxValue;
 
-        // Itera sobre todas las direcciones posibles para encontrar la mejor.
         foreach (var orientation in _directionsOrientation)
         {
             Vector3 direction = orientation.GetDirection();
             Vector3 finalPosition = transform.position + direction * detectionRange;
 
-            // Verifica si hay obstáculos en la dirección actual.
             if (!Physics2D.OverlapCircle(finalPosition, 0.4f, whatIsNotAPlayer))
             {
-                // Calcula la distancia al objetivo en esta dirección.
                 float distanceToTarget = Vector2.Distance(finalPosition, target);
 
-                // Si esta dirección es mejor que las anteriores, actualiza la mejor dirección.
                 if (distanceToTarget < shortestDistance)
                 {
                     bestDirection = direction;
@@ -132,7 +126,6 @@ public class EnemyIA : MonoBehaviour
             }
         }
 
-        // Si se encontró una dirección válida, mueve al enemigo en esa dirección.
         if (bestDirection != Vector3.zero)
         {
             Vector3 movePosition = transform.position + bestDirection * (detectionRange * 0.5f);
@@ -226,7 +219,7 @@ public class EnemyIA : MonoBehaviour
             if (!_playerDetected)
             {
                 _currentState = EnemyState.Patrol;
-                _currentSpeed = speedPatrol; // Vuelve a la velocidad de patrulla.
+                _currentSpeed = speedPatrol;
                 _currentCooldown = _chaseCooldown;
             }
         }
@@ -236,7 +229,7 @@ public class EnemyIA : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         _currentState = EnemyState.Chase;
-        _currentSpeed = speedChase; // Cambia a la velocidad de persecución.
+        _currentSpeed = speedChase;
     }
 
     // ALARM 
