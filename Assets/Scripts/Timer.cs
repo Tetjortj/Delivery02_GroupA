@@ -12,6 +12,6 @@ public class Timer : MonoBehaviour
         temps += Time.deltaTime;
         int minutes = Mathf.FloorToInt(temps/60);
         int seconds = Mathf.FloorToInt(temps%60);
-        temporitzadorText.text = string.Format("{0:00}:{1:00}", minutes,seconds);
+        temporitzadorText.text = "Timer: " + string.Format("{0:00}:{1:00}", minutes,seconds);
     }
 }
