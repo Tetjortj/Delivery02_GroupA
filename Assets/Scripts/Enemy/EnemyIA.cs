@@ -53,7 +53,7 @@ public class EnemyIA : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
         if (_player == null)
         {
-            Debug.LogError("No se encontró un objeto con el tag 'Player' en la escena.");
+            // Debug.LogError("No se encontró un objeto con el tag 'Player' en la escena.");
             enabled = false; // Desactiva el script si no hay jugador.
             return;
         }
