@@ -928,6 +928,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257600452529102823, guid: 04a084347e8d07e43986240e2a50d7b5,
         type: 3}
+      propertyPath: speedChase
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257600452529102823, guid: 04a084347e8d07e43986240e2a50d7b5,
+        type: 3}
+      propertyPath: speedPatrol
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257600452529102823, guid: 04a084347e8d07e43986240e2a50d7b5,
+        type: 3}
       propertyPath: visionAngle
       value: 100
       objectReference: {fileID: 0}
