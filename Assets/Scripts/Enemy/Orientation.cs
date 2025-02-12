@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Orientation
 {
-    private Vector3 _direction;  // Almacena la dirección.
-    private bool _isVisible;     // Almacena si la dirección es visible (puede ser útil para detectar obstáculos).
+    private Vector3 _direction;
+    private bool _isVisible;
 
     public Orientation(Vector3 direction, bool isVisible)
     {

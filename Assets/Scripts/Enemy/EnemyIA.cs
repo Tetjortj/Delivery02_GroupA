@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class EnemyIA : MonoBehaviour
 {
-    // GENERAL SETTINGS
+    // General Settings
     public float speedPatrol = 2f;
     public float speedChase = 4f;
     private float _currentSpeed;
     private SpriteRenderer _spriteRenderer;
     private EnemyState _currentState = EnemyState.Patrol;
 
-    // PATROL
+    // Patrol
     [SerializeField] private GameObject[] waypointList;
     private int _currentWaypointTarget;
 
-    // MOVE TO
+    // Move to
     [SerializeField] private float detectionRange;
     [SerializeField] private LayerMask whatIsNotAPlayer;
     private Orientation[] _directionsOrientation;
 
-    // DETECT
+    // Detect
     [SerializeField] private LayerMask whatIsPlayer;
     [SerializeField] private float rangeDetectionPlayer;
     [SerializeField] private float visionAngle;
@@ -27,12 +27,12 @@ public class EnemyIA : MonoBehaviour
     private bool _playerDetected;
     private GameObject _player;
 
-    // CHASE
+    // Chase
     private Vector3 _lastPlayerPosition;
     private float _chaseCooldown = 5f;
     private float _currentCooldown = 0f;
 
-    // STATES
+    // States
     public enum EnemyState
     {
         Patrol,
@@ -42,14 +42,14 @@ public class EnemyIA : MonoBehaviour
 
     private void Start()
     {
-        // GENERAL SETTINGS
+        // General Settings
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _currentSpeed = speedPatrol;
 
-        // PATROL
+        // Patrol
         _currentWaypointTarget = 0;
 
-        // DETECT PLAYER
+        // Detect Player
         _player = GameObject.FindWithTag("Player");
         if (_player == null)
         {
@@ -82,7 +82,7 @@ public class EnemyIA : MonoBehaviour
         }
     }
 
-    // CLASS ORIENTATION - MAKE DIRECTIONS
+    // Make Directions
     private void Awake()
     {
         float[] angles = { -135f, -90f, -45f, 45f, 90f, 135f, 180f, 360f };
@@ -95,7 +95,7 @@ public class EnemyIA : MonoBehaviour
         }
     }
 
-    // GENERAL FUNCTIONS 
+    // General Functions 
     private void ChangeTarget(Vector3 targetPosition)
     {
         Vector3 direction = targetPosition - transform.position;
@@ -133,7 +133,7 @@ public class EnemyIA : MonoBehaviour
         }
     }
 
-    // FUNCTION PATROL
+    // Patrol
     private void Patrol()
     {
         ChangeTarget(waypointList[_currentWaypointTarget].transform.position);
@@ -146,7 +146,7 @@ public class EnemyIA : MonoBehaviour
         MoveTo(waypointList[_currentWaypointTarget].transform.position);
     }
 
-    // DETECT
+    // Detect
     private void DetectPlayer()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, _player.transform.position);
@@ -206,7 +206,7 @@ public class EnemyIA : MonoBehaviour
         }
     }
 
-    // CHASE TO PLAYER
+    // Chase to player
     private void UpdateChase()
     {
         _currentCooldown -= Time.fixedDeltaTime;
@@ -232,7 +232,7 @@ public class EnemyIA : MonoBehaviour
         _currentSpeed = speedChase;
     }
 
-    // ALARM 
+    // Alarm 
     private void UpdateAlarm()
     {
         StartCoroutine(WaitForChase());

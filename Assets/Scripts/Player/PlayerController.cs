@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         if (spawnPoint == null)
         {
             Debug.LogError("SpawnPoint no asignado en el Inspector.");
-            spawnPoint = transform; // Usa la posición inicial como fallback.
+            spawnPoint = transform;
         }
     }
 
@@ -37,15 +37,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Jugador ha colisionado con el enemigo. Vidas restantes: " + (lives - 1));
-
             lives--;
 
             if (lives > 0)
             {
                 if (spawnPoint == null)
                 {
-                    Debug.LogError("spawnPoint no está asignado. Verifica en el Inspector.");
                     return;
                 }
 
@@ -55,7 +52,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 isDead = true;
-                Debug.Log("Jugador ha muerto. Cargando escena de fin...");
                 SceneManager.LoadScene("Ending");
             }
         }

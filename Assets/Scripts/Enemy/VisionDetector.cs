@@ -38,7 +38,7 @@ public class VisionDetector : MonoBehaviour
 
     private void DetectPlayer()
     {
-        _isPlayerVisible = false; // Por defecto, no detecta al jugador
+        _isPlayerVisible = false;
 
         if (_player == null) return;
             
